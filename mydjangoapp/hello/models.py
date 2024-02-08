@@ -9,4 +9,4 @@ class Employee(models.Model):
     salary = models.DecimalField(max_digits=10, decimal_places=2)
 
     class Meta:
-        db_table = 'employees'  # Make sure this matches the actual table name in Oracle
+        db_table = 'employees'
