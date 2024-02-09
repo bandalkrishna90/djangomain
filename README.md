@@ -1,23 +1,22 @@
 def insert_or_replace_tenant_id(storage_path_dict, table_name, tenant_prefix, base_tenant_id, full_tenant_id):
     """
-    Updates storage paths with a new tenant ID, either by inserting or replacing the tenant ID based on a given prefix.
-    If the base tenant ID differs from the full tenant ID, this function searches for paths containing the tenant prefix
-    and updates them accordingly. If the tenant prefix is found, the tenant ID in the path is replaced with the new
-    full tenant ID. If the prefix is not found, the new tenant ID is inserted immediately after the domain. Regardless
-    of tenant ID changes, the 'data_model_version' in each path is updated to match the version derived from the
-    provided table name.
+    Modifies storage paths in a dictionary by either inserting or replacing the tenant ID, based on the specified
+    tenant prefix. This function updates the tenant ID if it differs from the base to the full tenant ID, and adjusts
+    the 'data_model_version' according to the table name provided. If the tenant prefix is detected, the existing
+    tenant ID is replaced; otherwise, the new tenant ID is added after the domain. The data model version is
+    consistently updated in all paths.
 
     Args:
-        storage_path_dict (dict): A dictionary where keys are descriptive names of the storage paths and values are
-                                  the actual storage paths as strings.
-        table_name (str): The name of the table, used to derive the data model version. If the name starts with 'v',
-                          the version is taken from the table name; otherwise, 'v1' is used as a default version.
-        tenant_prefix (str): The prefix used to identify tenant IDs within the storage paths. This prefix is used
-                             to determine whether a tenant ID already exists in the path.
-        base_tenant_id (str): The original tenant ID. If this ID matches the full tenant ID, no tenant ID updates
-                              are made to the paths; only the data model version is updated.
-        full_tenant_id (str): The new tenant ID to be inserted or to replace the existing tenant ID in each path.
+        storage_path_dict (dict): Dictionary with storage path names and URLs.
+        table_name (str): Name of the table to derive the version.
+        tenant_prefix (str): Prefix indicating the presence of a tenant ID.
+        base_tenant_id (str): Original tenant ID for comparison.
+        full_tenant_id (str): New tenant ID for insertion or replacement.
 
     Returns:
-        str: A JSON string representation of the updated storage paths dictionary, formatted with an indent of 4
-             spaces for readability.
+        str: Updated storage paths as a JSON string.
+
+    Example:
+        >>> updated_storage_paths_json = insert_or_replace_tenant_id(...)
+        >>> print(updated_storage_paths_json)
+    """
